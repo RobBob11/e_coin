@@ -1,6 +1,6 @@
 # e_coin
 
-A new Flutter project.
+Application to offer the most up-to-date information on the cryptocurrency market
 
 ## Getting Started
 
