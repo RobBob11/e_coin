@@ -1,3 +1,6 @@
+import 'package:e_coin/pages/home.dart';
+import 'package:e_coin/pages/market.dart';
+import 'package:e_coin/pages/news.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +45,7 @@ class _Pages extends StatelessWidget {
     return PageView(
       controller: NavigationModel._pageController,
       physics: const NeverScrollableScrollPhysics(),
-      children: <Widget>[/*insertar las paginas de la app*/],
+      children: <Widget>[Home(), Market(), News()],
     );
   }
 }
