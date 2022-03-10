@@ -17,7 +17,6 @@ class Coin {
     required this.currentPrice,
     required this.marketCap,
     required this.marketCapRank,
-    required this.fullyDilutedValuation,
     required this.totalVolume,
     required this.high24H,
     required this.low24H,
@@ -44,8 +43,7 @@ class Coin {
   double currentPrice;
   int marketCap;
   int marketCapRank;
-  int fullyDilutedValuation;
-  int totalVolume;
+  double totalVolume;
   double high24H;
   double low24H;
   double priceChange24H;
@@ -71,10 +69,7 @@ class Coin {
         currentPrice: json["current_price"].toDouble(),
         marketCap: json["market_cap"],
         marketCapRank: json["market_cap_rank"],
-        fullyDilutedValuation: json["fully_diluted_valuation"] == null
-            ? null
-            : json["fully_diluted_valuation"],
-        totalVolume: json["total_volume"],
+        totalVolume: json["total_volume"].toDouble(),
         high24H: json["high_24h"].toDouble(),
         low24H: json["low_24h"].toDouble(),
         priceChange24H: json["price_change_24h"].toDouble(),
@@ -84,11 +79,10 @@ class Coin {
         marketCapChangePercentage24H:
             json["market_cap_change_percentage_24h"].toDouble(),
         circulatingSupply: json["circulating_supply"].toDouble(),
-        totalSupply: json["total_supply"] == null
-            ? null
-            : json["total_supply"].toDouble(),
+        totalSupply:
+            json["total_supply"] == null ? 0 : json["total_supply"].toDouble(),
         maxSupply:
-            json["max_supply"] == null ? null : json["max_supply"].toDouble(),
+            json["max_supply"] == null ? 0 : json["max_supply"].toDouble(),
         ath: json["ath"].toDouble(),
         athChangePercentage: json["ath_change_percentage"].toDouble(),
         athDate: DateTime.parse(json["ath_date"]),
@@ -106,8 +100,6 @@ class Coin {
         "current_price": currentPrice,
         "market_cap": marketCap,
         "market_cap_rank": marketCapRank,
-        "fully_diluted_valuation":
-            fullyDilutedValuation == null ? null : fullyDilutedValuation,
         "total_volume": totalVolume,
         "high_24h": high24H,
         "low_24h": low24H,
