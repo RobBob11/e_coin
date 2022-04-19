@@ -39,16 +39,13 @@ dependencies:
   provider: ^6.0.2
   hexcolor: ^2.0.6
   google_fonts: ^2.3.1
-<<<<<<< HEAD
   intl: ^0.17.0
   syncfusion_flutter_charts: ^20.1.50
-=======
   webview_flutter: ^3.0.1
   pull_to_refresh: ^2.0.0
 
 
 
->>>>>>> 5fc58da588a4781267a849cd38e0b48cb5e5225b
 
 dev_dependencies:
   flutter_test:
