@@ -2,10 +2,7 @@ import 'package:e_coin/pages/home.dart';
 import 'package:e_coin/pages/market.dart';
 import 'package:e_coin/pages/news.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-
-import '../../main.dart';
 
 class Navigation extends StatelessWidget {
   @override
@@ -29,7 +26,7 @@ class _NavigationModel with ChangeNotifier {
   set currentPage(int val) {
     _currentPage = val;
     _pageController.animateToPage(val,
-        duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+        duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
 
     notifyListeners();
   }
@@ -57,20 +54,19 @@ class _NavBar extends StatelessWidget {
 
     // barra
     return BottomNavigationBar(
-      backgroundColor: Colors.white,
       currentIndex: navModel.currentPage,
       onTap: (i) => navModel.currentPage = i,
       type: BottomNavigationBarType.fixed,
-      // ignore: prefer_const_literals_to_create_immutables
       items: [
         BottomNavigationBarItem(
           icon: Container(
-            padding: EdgeInsets.symmetric(vertical: 4),
-            child: ImageIcon(AssetImage('assets/img/home.png'), size: 22.0),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child:
+                const ImageIcon(AssetImage('assets/img/home.png'), size: 22.0),
           ),
           activeIcon: Container(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: ImageIcon(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: const ImageIcon(
                 AssetImage('assets/img/home.png'),
                 size: 22.0,
               )),
@@ -78,37 +74,29 @@ class _NavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Container(
-            padding: EdgeInsets.symmetric(vertical: 4),
-            child: ImageIcon(AssetImage('assets/img/stats.png'), size: 22.0),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child:
+                const ImageIcon(AssetImage('assets/img/stats.png'), size: 22.0),
           ),
           activeIcon: Container(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: ImageIcon(AssetImage('assets/img/stats.png'), size: 22.0)),
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: const ImageIcon(AssetImage('assets/img/stats.png'),
+                  size: 22.0)),
           label: 'Mercado',
         ),
         BottomNavigationBarItem(
           icon: Container(
-            padding: EdgeInsets.symmetric(vertical: 4),
-            child: ImageIcon(AssetImage('assets/img/document.png'), size: 22.0),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: const ImageIcon(AssetImage('assets/img/document.png'),
+                size: 22.0),
           ),
           activeIcon: Container(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child:
-                  ImageIcon(AssetImage('assets/img/document.png'), size: 22.0)),
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: const ImageIcon(AssetImage('assets/img/document.png'),
+                  size: 22.0)),
           label: 'Noticias',
         ),
       ],
-      selectedItemColor: HexColor("#4054E9"),
-      showUnselectedLabels: true,
-      selectedLabelStyle: TextStyle(
-        color: HexColor("#4054E9"),
-        fontSize: 12,
-      ),
-      unselectedLabelStyle: TextStyle(
-        color: HexColor("#4054E9"),
-        fontSize: 12,
-      ),
-      unselectedItemColor: HexColor("#747E98"),
     );
   }
 }
