@@ -1,10 +1,7 @@
 import 'package:e_coin/models/chart_data.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
-
-import '../../main.dart';
 
 class Chart extends StatelessWidget {
   // lista de datos moldeados

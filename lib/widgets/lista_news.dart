@@ -1,8 +1,7 @@
+import 'package:e_coin/models/noticias.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../models/noticias.dart';
 
 class ListaNoticias extends StatelessWidget {
   final List<Article> noticias;
@@ -13,9 +12,9 @@ class ListaNoticias extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        itemCount: this.noticias.length,
+        itemCount: noticias.length,
         itemBuilder: (BuildContext context, int i) {
-          return _Noticia(noticia: this.noticias[i], index: i);
+          return _Noticia(noticia: noticias[i], index: i);
         });
   }
 }
@@ -32,14 +31,14 @@ class _Noticia extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: Column(
           children: <Widget>[
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             _TarjetaTitulo(noticia),
             _TarjetaImagen(noticia),
             _TarjetaBotones(noticia),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
           ],
         ));
   }
@@ -52,12 +51,8 @@ class _TarjetaTitulo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Text(
-        noticia.title,
-        style: GoogleFonts.montserrat(
-            fontWeight: FontWeight.bold, fontSize: 17, color: Colors.black),
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(noticia.title, style: Theme.of(context).textTheme.headline3),
     );
   }
 }
@@ -70,23 +65,25 @@ class _TarjetaImagen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      margin: EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 15),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
         child: Container(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxHeight: 200, //max height
             ),
             child: (noticia.urlToImage != null)
                 ? FadeInImage(
                     imageErrorBuilder: (context, error, stackTrace) {
-                      return Image(image: AssetImage('assets/img/dragon.png'));
+                      return const Image(
+                          image: AssetImage('assets/img/dragon.png'));
                     },
-                    placeholder: AssetImage('assets/img/load.gif'),
+                    placeholder:
+                        const AssetImage('assets/img/loadingDataTr.gif'),
                     image: NetworkImage(noticia.urlToImage),
                   )
-                : Image(
+                : const Image(
                     image: AssetImage('assets/img/dragon.png'),
                   )),
       ),
@@ -101,29 +98,24 @@ class _TarjetaBotones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ElevatedButton(
-            onPressed: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => _NoticiaCompleta(this.noticia)),
-              )
-            },
-            child: Text('Ver más',
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.normal, fontSize: 14)),
-            style: ElevatedButton.styleFrom(
-                primary: Colors.black,
-                fixedSize: const Size(100, 10),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30))),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ElevatedButton(
+          onPressed: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => _NoticiaCompleta(noticia)),
+            )
+          },
+          child: Text('Ver más',
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 14,
+                  color: Colors.white)),
+        ),
+      ],
     );
   }
 }
@@ -139,8 +131,6 @@ class _NoticiaCompleta extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.white,
           centerTitle: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
