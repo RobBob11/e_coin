@@ -39,85 +39,95 @@ class _MarketState extends State<Market> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBarspl("Mercado", context),
-        // check for internet connection
-        body: (internetState == true)
-            ? FutureBuilder<List<Coin>?>(
-                future: data,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    final error = snapshot.error;
-                    return Text('nav to error');
-                  } else if (snapshot.hasData) {
-                    List<Coin>? coins = snapshot.data;
-                    coinsToogle = coins;
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        setState(() {
-                          data = coinsDataAll.getCoins();
-                        });
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(10.0),
-                        child: ListView(
-                          children: <Widget>[
-                            // barra de búsqueda
-                            Container(
-                              margin:
-                                  const EdgeInsets.symmetric(vertical: 10.0),
-                              child: TextField(
-                                onChanged: (value) => filtrar(value),
-                                decoration: InputDecoration(
-                                    iconColor: Colors.black,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        borderSide: BorderSide(
-                                            width: 1.2,
-                                            color: HexColor('#4054E9'))),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        borderSide: BorderSide(
-                                            width: 1,
-                                            color: HexColor('#747E98'))),
-                                    hintText: 'Buscar',
-                                    prefixIcon: const Icon(
-                                      Icons.search_rounded,
-                                      size: 25.0,
-                                    )),
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+          appBar: AppBarspl("Mercado", context),
+          // check for internet connection
+          body: (internetState == true)
+              ? FutureBuilder<List<Coin>?>(
+                  future: data,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      final error = snapshot.error;
+                      return Text('nav to error');
+                    } else if (snapshot.hasData) {
+                      List<Coin>? coins = snapshot.data;
+                      coinsToogle = coins;
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          setState(() {
+                            data = coinsDataAll.getCoins();
+                          });
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(10.0),
+                          child: ListView(
+                            children: <Widget>[
+                              // barra de búsqueda
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                child: TextField(
+                                  onChanged: (value) => filtrar(value),
+                                  decoration: InputDecoration(
+                                      iconColor: Colors.black,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10.0),
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          borderSide: BorderSide(
+                                              width: 1.2,
+                                              color: HexColor('#4054E9'))),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: HexColor('#747E98'))),
+                                      hintText: 'Buscar',
+                                      prefixIcon: const Icon(
+                                        Icons.search_rounded,
+                                        size: 25.0,
+                                      )),
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Text('Monedas',
-                                  style: Theme.of(context).textTheme.headline3),
-                              margin: const EdgeInsets.only(
-                                  top: 10.0, bottom: 10.0),
-                            ),
-                            // listado de monedas
-                            matchCoins!.isEmpty
-                                ? ListaTop(coins!)
-                                : ListaTop(matchCoins!),
-                          ],
+                              Container(
+                                child: Text('Monedas',
+                                    style:
+                                        Theme.of(context).textTheme.headline3),
+                                margin: const EdgeInsets.only(
+                                    top: 10.0, bottom: 10.0),
+                              ),
+                              // listado de monedas
+                              matchCoins!.isEmpty
+                                  ? ListaTop(coins!)
+                                  : ListaTop(matchCoins!),
+                            ],
+                          ),
                         ),
-                      ),
-                      displacement: 40.0,
-                    );
-                  } else {
-                    return const Center(
-                        child: Image(
-                      image: AssetImage('assets/img/loadingDataTr.gif'),
-                      width: 80,
-                    ));
-                  }
-                },
-              )
-            : const NoConnection());
+                        displacement: 40.0,
+                      );
+                    } else {
+                      return const Center(
+                          child: Image(
+                        image: AssetImage('assets/img/loadingDataTr.gif'),
+                        width: 80,
+                      ));
+                    }
+                  },
+                )
+              : const NoConnection()),
+    );
   }
 
   // filtrar la info de la barra
